@@ -102,3 +102,17 @@ dist
 
 # TernJS port file
 .tern-port
+
+# User config
+./.idea/*
+./build/*
+/.idea/jsLibraryMappings.xml
+/.idea/modules.xml
+/.idea/prettier.xml
+/build/mocks/setupServer.js
+/.idea/testing.iml
+/.idea/vcs.xml
+package-lock.json
+
+# Build files
+build/
