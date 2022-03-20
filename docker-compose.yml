@@ -1,8 +1,8 @@
 version: '3.9'
 
 services:
-  addresses-prod:
-    image: mysql-addresses-prod:0.1
+  addresses-db-prod:
+    image: $DOCKER_USER/testing-mandatory:addresses-db-prod
     build: 
       dockerfile: .docker/mysql/Dockerfile
       context: .
@@ -22,7 +22,7 @@ services:
       start_period: 3s
 
   express-app-prod:
-    image: node-express-app-prod:0.1
+    image: $DOCKER_USER/testing-mandatory:express-app-prod
     build:
       dockerfile: .docker/express-app/Dockerfile
       context: .
@@ -31,18 +31,17 @@ services:
     ports:
       - $APP_PORT:$APP_PORT
     depends_on:
-      addresses-prod:
+      addresses-db-prod:
         condition: service_healthy
       express-app-tests:
         condition: service_completed_successfully
 
   express-app-tests:
-    image: test-runner:0.1
     build: 
       dockerfile: .docker/express-app/Dockerfile.test
       context: .
     environment:
       - APP_PORT
     depends_on:
-      addresses-prod:
+      addresses-db-prod:
         condition: service_healthy
