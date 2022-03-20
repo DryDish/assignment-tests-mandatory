@@ -29,7 +29,20 @@ services:
     environment:
       - APP_PORT
     ports:
-      - 9000:9000
+      - $APP_PORT:$APP_PORT
+    depends_on:
+      addresses-prod:
+        condition: service_healthy
+      express-app-tests:
+        condition: service_completed_successfully
+
+  express-app-tests:
+    image: test-runner:0.1
+    build: 
+      dockerfile: .docker/express-app/Dockerfile.test
+      context: .
+    environment:
+      - APP_PORT
     depends_on:
       addresses-prod:
         condition: service_healthy
