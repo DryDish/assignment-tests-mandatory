@@ -16,37 +16,26 @@ export default class PersonGenerator {
   }
 
   /**
-   * Returns a random CPR number with a random Date of Birth and Gender.
-   * 
+   * Returns a random CPR number for a random Date of Birth and Gender.
+   *
    * @returns a random CPR number
    */
   public getRandomCPR(): string {
-    const date = this.getRandomDateOfBirth(true);
+    const date = this.getRandomDate(new Date(1820, 1, 1), new Date());
     const randomNumber = this.getRandomNumber(1000, 9999);
-
-    return `${date}${randomNumber}`;
+    return `${this.formatDate(date, DateFormat.CPR)}${randomNumber}`;
   }
 
   /**
-   * Returns a random Date of Birth between 1/1/1820 and the current date, with the specified format.\
+   * Returns a random Date of Birth between 1/1/1820 and the current date.\
    * \
-   * Formats: 
-   * - standard: `yyyy-MM-dd`;
-   * - CPR: `ddMMyyyy`.
-   * 
-   * @param useCprFormat - specifies whether the format is the CPR format or not.
+   * Formats: `yyyy-MM-dd`.
+   *
    * @returns a random Date of Birth.
    */
-  public getRandomDateOfBirth(useCprFormat: boolean): string {
-    // Generate a random date.
+  public getRandomDateOfBirth(): string {
     const date = this.getRandomDate(new Date(1820, 1, 1), new Date());
-
-    // Format the date based on the specified format.
-    if (useCprFormat) {
-        const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
-        return `${day}${date.getMonth() + 1}${date.getFullYear()}`
-    } 
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    return this.formatDate(date, DateFormat.Standard);
   }
 
   public getRandomPersonData() {
@@ -68,13 +57,36 @@ export default class PersonGenerator {
 
   /**
    * Generates and returns a random date between the `start` and `end` dates.
-   * 
+   *
    * @param start - start date.
    * @param end - end date.
    * @returns a random date between `start` and `end`.
    */
   private getRandomDate(start: Date, end: Date): Date {
-    return new Date(Math.random() * (end.getTime() - start.getTime()) + start.getTime());
+    return new Date(
+      Math.random() * (end.getTime() - start.getTime()) + start.getTime()
+    );
+  }
+
+  /**
+   * Formats a date with the given format style and returns the formatted string.
+   *
+   * @param date - date to format.
+   * @param format - specifies which format style to use.
+   * @returns a formatted date string.
+   */
+  private formatDate(date: Date, format: DateFormat): string {
+    switch (format) {
+      case "standard":
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+      case "cpr":
+        // Adjust the day number to start with a `0` for single digit days
+        const day =
+          date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+        return `${day}${date.getMonth() + 1}${date.getFullYear()}`;
+      default:
+        return "";
+    }
   }
 }
 
@@ -91,3 +103,8 @@ type PersonData = {
   CPR: string;
   dateOfBirth: string;
 };
+
+enum DateFormat {
+  Standard = `standard`,
+  CPR = `cpr`,
+}

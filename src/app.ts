@@ -17,7 +17,7 @@ app.get('/person', (req, res) => {
 });
 
 app.get('/person/date', (req, res) => {
-  res.send({date: personGenerator.getRandomDateOfBirth(false)});
+  res.send({date: personGenerator.getRandomDateOfBirth()});
 });
 
 app.get('/person/cpr', (req, res) => {
