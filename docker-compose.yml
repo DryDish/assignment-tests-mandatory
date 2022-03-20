@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  addresses-prod:
+    image: mysql-addresses-prod:0.1
+    build: 
+      dockerfile: .docker/mysql/Dockerfile
+      context: .
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_HOST
+      - MYSQL_DATABASE
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD-SHELL", "/usr/bin/mysql --user=$MYSQL_USER --password=$MYSQL_PASSWORD --execute 'SHOW DATABASES';"]
+      interval: 3s
+      timeout: 2s
+      retries: 5
+      start_period: 3s
