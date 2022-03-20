@@ -16,6 +16,10 @@ app.get('/person', (req, res) => {
   res.send({person:  personGenerator.getRandomPerson()});
 });
 
+app.get('/person/date', (req, res) => {
+  res.send({date: personGenerator.getRandomDateOfBirth()});
+});
+
 app.listen(port, () => {
   console.log(`Connected successfully on port ${port}`);
 });

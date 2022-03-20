@@ -19,8 +19,17 @@ export default class PersonGenerator {
     return;
   }
 
-  public getRandomDateOfBirth() {
-    return;
+  /**
+   * Returns a random Date of Birth between 1/1/1820 and the current date.\
+   * \
+   * Format: `yyyy-MM-dd`
+   * @returns a random Date of Birth.
+   */
+  public getRandomDateOfBirth(): string {
+    const date = this.getRandomDate(new Date(1820, 1, 1), new Date());
+    const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+    return formattedDate;
   }
 
   public getRandomPersonData() {
@@ -38,6 +47,17 @@ export default class PersonGenerator {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  /**
+   * Generates and returns a random date between the `start` and `end` dates.
+   * 
+   * @param start - start date.
+   * @param end - end date.
+   * @returns a random date between `start` and `end`.
+   */
+  private getRandomDate(start: Date, end: Date): Date {
+    return new Date(Math.random() * (end.getTime() - start.getTime()) + start.getTime());
   }
 }
 
