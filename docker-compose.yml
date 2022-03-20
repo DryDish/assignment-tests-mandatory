@@ -20,3 +20,16 @@ services:
       timeout: 2s
       retries: 5
       start_period: 3s
+
+  express-app-prod:
+    image: node-express-app-prod:0.1
+    build:
+      dockerfile: .docker/express-app/Dockerfile
+      context: .
+    environment:
+      - APP_PORT
+    ports:
+      - 9000:9000
+    depends_on:
+      addresses-prod:
+        condition: service_healthy
