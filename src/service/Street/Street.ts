@@ -1,9 +1,10 @@
 import { letterGenerator } from "../../util/LetterGenerator/LetterGenerator";
+import { numberGenerator } from "../../util/NumberGenerator/NumberGenerator";
 
 export function streetGenerator(): string {
   let street = "";
-  const randomNr: number = Math.floor(Math.random() * 20) + 1;
-  for (let i = 0; i < randomNr; i++ ) {
+  const randomNr: number = numberGenerator(20);
+  for (let i = 0; i < randomNr; i++) {
     street += letterGenerator();
   }
   return street;
