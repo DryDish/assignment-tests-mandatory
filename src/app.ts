@@ -17,7 +17,11 @@ app.get('/person', (req, res) => {
 });
 
 app.get('/person/date', (req, res) => {
-  res.send({date: personGenerator.getRandomDateOfBirth()});
+  res.send({date: personGenerator.getRandomDateOfBirth(false)});
+});
+
+app.get('/person/cpr', (req, res) => {
+  res.send({cpr: personGenerator.getRandomCPR()});
 });
 
 app.listen(port, () => {

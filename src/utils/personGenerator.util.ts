@@ -15,21 +15,38 @@ export default class PersonGenerator {
     return this.peopleList[this.getRandomNumber(0, this.peopleList.length)];
   }
 
-  public getRandomCPR() {
-    return;
+  /**
+   * Returns a random CPR number with a random Date of Birth and Gender.
+   * 
+   * @returns a random CPR number
+   */
+  public getRandomCPR(): string {
+    const date = this.getRandomDateOfBirth(true);
+    const randomNumber = this.getRandomNumber(1000, 9999);
+
+    return `${date}${randomNumber}`;
   }
 
   /**
-   * Returns a random Date of Birth between 1/1/1820 and the current date.\
+   * Returns a random Date of Birth between 1/1/1820 and the current date, with the specified format.\
    * \
-   * Format: `yyyy-MM-dd`
+   * Formats: 
+   * - standard: `yyyy-MM-dd`;
+   * - CPR: `ddMMyyyy`.
+   * 
+   * @param useCprFormat - specifies whether the format is the CPR format or not.
    * @returns a random Date of Birth.
    */
-  public getRandomDateOfBirth(): string {
+  public getRandomDateOfBirth(useCprFormat: boolean): string {
+    // Generate a random date.
     const date = this.getRandomDate(new Date(1820, 1, 1), new Date());
-    const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
-    return formattedDate;
+    // Format the date based on the specified format.
+    if (useCprFormat) {
+        const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+        return `${day}${date.getMonth() + 1}${date.getFullYear()}`
+    } 
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   }
 
   public getRandomPersonData() {
