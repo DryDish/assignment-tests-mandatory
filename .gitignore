@@ -115,6 +115,6 @@ dist
 package-lock.json
 *.code-workspace
 docker_token
-
+scripts/setup.sh
 # Build files
 build/
