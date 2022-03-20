@@ -38,8 +38,43 @@ export default class PersonGenerator {
     return this.formatDate(date, DateFormat.Standard);
   }
 
-  public getRandomPersonData() {
-    return;
+  /**
+   * Returns a Person Data object containing the full name, gender,
+   * date of birth and CPR number.
+   *
+   * @returns a person data object
+   */
+  public getRandomPersonData(): PersonData {
+    // Gathering person name, surname and gender.
+    const person: Person = this.getRandomPerson();
+
+    // Generating a birth date
+    const birthDate = this.getRandomDate(new Date(1820, 1, 1), new Date());
+    const birthDateFormatted = this.formatDate(birthDate, DateFormat.Standard);
+
+    // Generating a CPR Number
+    let cprEnding = this.getRandomNumber(1000, 9999);
+    const cprDateFormatted = this.formatDate(birthDate, DateFormat.CPR);
+
+    // Setting the correct last digit based on gender.
+    switch (person.gender) {
+      case "female": // Last digit must be even.
+        // If it is odd:
+        if (!this.isEven(cprEnding)) {
+          cprEnding--;
+        }
+        break;
+      case "male": // Last digit must be odd.
+        // If it is even:
+        if (this.isEven(cprEnding)) {
+          cprEnding++;
+        }
+        break;
+    }
+    // Assemble the CPR number.
+    const cprNumber = `${cprDateFormatted}${cprEnding}`;
+
+    return { ...person, dateOfBirth: birthDateFormatted, CPR: cprNumber };
   }
 
   /**
@@ -76,17 +111,30 @@ export default class PersonGenerator {
    * @returns a formatted date string.
    */
   private formatDate(date: Date, format: DateFormat): string {
+    const month =
+      date.getMonth() + 1 < 10
+        ? `0${date.getMonth() + 1}`
+        : `${date.getMonth() + 1}`;
+    const day =
+      date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+
     switch (format) {
-      case "standard":
-        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-      case "cpr":
+      case DateFormat.Standard:
+        return `${date.getFullYear()}-${month}-${day}`;
+      case DateFormat.CPR:
         // Adjust the day number to start with a `0` for single digit days
-        const day =
-          date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
-        return `${day}${date.getMonth() + 1}${date.getFullYear()}`;
-      default:
-        return "";
+        return `${day}${month}${date.getFullYear()}`;
     }
+  }
+
+  /**
+   * Checks whether the provided number is even or not.
+   *
+   * @param number - any number
+   * @returns true - if number is even; false - if number is odd.
+   */
+  private isEven(number: number): boolean {
+    return number % 2 === 0;
   }
 }
 
@@ -105,6 +153,6 @@ type PersonData = {
 };
 
 enum DateFormat {
-  Standard = `standard`,
-  CPR = `cpr`,
+  Standard,
+  CPR,
 }

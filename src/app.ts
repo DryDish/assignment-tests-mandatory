@@ -24,6 +24,30 @@ app.get('/person/cpr', (req, res) => {
   res.send({cpr: personGenerator.getRandomCPR()});
 });
 
+app.get('/person/full', (req, res) => {
+  res.send({personData: personGenerator.getRandomPersonData()});
+});
+
+app.get('/person/no-cpr', (req, res) => {
+  const personData = personGenerator.getRandomPersonData();
+  res.send({personData: {
+    name: personData.name,
+    surname: personData.surname,
+    gender: personData.gender,
+    dateOfBirth: personData.dateOfBirth,
+  }});
+});
+
+app.get('/person/no-date', (req, res) => {
+  const personData = personGenerator.getRandomPersonData();
+  res.send({personData: {
+    name: personData.name,
+    surname: personData.surname,
+    gender: personData.gender,
+    CPR: personData.CPR,
+  }});
+});
+
 app.listen(port, () => {
   console.log(`Connected successfully on port ${port}`);
 });
