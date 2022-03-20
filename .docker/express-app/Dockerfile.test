@@ -13,7 +13,6 @@ RUN npm install
 # Copy over needed files for the build 
 COPY tsconfig.json /app/
 COPY src/ src/
-COPY src/tests /src/tests
 
 # Execute the build
 CMD ["npm", "test"] 
