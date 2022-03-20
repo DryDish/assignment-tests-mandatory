@@ -1,4 +1,4 @@
-import { numberGenerator } from "./NumberGenerator";
+import { numberGenerator, randomArrayEntry } from "./NumberGenerator";
 
 describe("checks random number generator", () => {
   test("checks if number is between 1-999 (house number)", () => {
@@ -16,5 +16,13 @@ describe("checks random number generator", () => {
   test("Checks that its a number from 1-50", () => {
     const houseNumber: number = numberGenerator(50);
     expect(houseNumber > 0 && houseNumber <= 50);
+  });
+});
+describe("check random entry from array", () => {
+  test("checks on array of numbers", () => {
+    expect([1, 2, 3, 4, 5]).toContain(randomArrayEntry([1, 2, 3, 4, 5]));
+  });
+  test("checks on string", () => {
+    expect(["a", "b", "c"]).toContain(randomArrayEntry(["a", "b", "c"]));
   });
 });

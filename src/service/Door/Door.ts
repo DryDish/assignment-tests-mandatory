@@ -1,8 +1,11 @@
-import { numberGenerator } from "../../util/NumberGenerator/NumberGenerator";
+import {
+  numberGenerator,
+  randomArrayEntry,
+} from "../../util/NumberGenerator/NumberGenerator";
 import { letterGenerator } from "../../util/LetterGenerator/LetterGenerator";
 
 export function getDoorSide(): string {
-  return ["mf", "tv", "th"][numberGenerator(3) - 1];
+  return randomArrayEntry(["mf", "tv", "th"]);
 }
 
 export function apartmentDoorWithNumberGenerator(): string {
@@ -14,9 +17,9 @@ export function apartmentDoorWithDashGenerator(): string {
 }
 
 export function apartmentDoorGenerator(): string {
-  return [
+  return randomArrayEntry([
     getDoorSide(),
     apartmentDoorWithNumberGenerator(),
     apartmentDoorWithDashGenerator(),
-  ][numberGenerator(3) - 1];
+  ]);
 }
