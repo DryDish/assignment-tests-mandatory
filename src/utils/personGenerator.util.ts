@@ -7,12 +7,16 @@ export default class PersonGenerator {
 
   /**
    * Returns a random person object containing:
-   * - name: string;
-   * - surname: string;
+   * - fullName: string;
    * - gender: string.
    */
-  public getRandomPerson(): Person {
-    return this.peopleList[this.getRandomNumber(0, this.peopleList.length)];
+  public getRandomPerson(): PersonData {
+    const person: Person =
+      this.peopleList[this.getRandomNumber(0, this.peopleList.length)];
+    return {
+      fullName: `${person.name} ${person.surname}`,
+      gender: person.gender,
+    };
   }
 
   /**
@@ -44,9 +48,9 @@ export default class PersonGenerator {
    *
    * @returns a person data object
    */
-  public getRandomPersonData(): PersonData {
+  public getRandomPersonData(): PersonFullData {
     // Gathering person name, surname and gender.
-    const person: Person = this.getRandomPerson();
+    const person: PersonData = this.getRandomPerson();
 
     // Generating a birth date
     const birthDate = this.getRandomDate(new Date(1820, 1, 1), new Date());
@@ -145,8 +149,12 @@ type Person = {
 };
 
 type PersonData = {
-  name: string;
-  surname: string;
+  fullName: string;
+  gender: string;
+};
+
+type PersonFullData = {
+  fullName: string;
   gender: string;
   CPR: string;
   dateOfBirth: string;

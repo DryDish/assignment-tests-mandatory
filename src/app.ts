@@ -31,8 +31,7 @@ app.get('/person/full', (req, res) => {
 app.get('/person/no-cpr', (req, res) => {
   const personData = personGenerator.getRandomPersonData();
   res.send({personData: {
-    name: personData.name,
-    surname: personData.surname,
+    fullName: personData.fullName,
     gender: personData.gender,
     dateOfBirth: personData.dateOfBirth,
   }});
@@ -41,8 +40,7 @@ app.get('/person/no-cpr', (req, res) => {
 app.get('/person/no-date', (req, res) => {
   const personData = personGenerator.getRandomPersonData();
   res.send({personData: {
-    name: personData.name,
-    surname: personData.surname,
+    fullName: personData.fullName,
     gender: personData.gender,
     CPR: personData.CPR,
   }});
