@@ -20,17 +20,17 @@ const validPhoneNumberStarters =
       826, 827, 829
     ]
 const maxPhoneNumberLength = 8;
-function getRandomInt(max: number) {
+
+function genRandomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-function createRandomPhoneNumber() {
-  let phoneNumberStarter = validPhoneNumberStarters[getRandomInt(validPhoneNumberStarters.length-1)];
+function genRandomPhoneNumber() {
+  let phoneNumberStarter = validPhoneNumberStarters[genRandomInt(validPhoneNumberStarters.length-1)];
   let phoneNumberArray = [phoneNumberStarter];
   phoneNumberArray = Array.from(phoneNumberArray.toString()).map(Number);
-  console.log('initiating phoneNumberArray.length ' + phoneNumberArray.length);
   while (phoneNumberArray.length < maxPhoneNumberLength) {
-    phoneNumberArray.push(getRandomInt(9));
+    phoneNumberArray.push(genRandomInt(9));
   }
   if (phoneNumberArray.length > 8) {
     // One proper error message to top this magnificence
@@ -39,41 +39,43 @@ function createRandomPhoneNumber() {
   return phoneNumberArray.join("");
 }
 
-function genNumbers (tot: number) {
-  let x = {}
-  for (let i = 0; i < tot; i++) {
-    let y = createRandomPhoneNumber();
-    console.log(i + ". " + y);
-    let n: string = "phoneNo"+i;
-    // @ts-ignore
-    x[n] = y;
+function genNumbers(total: number) {
+  let array = [];
+  for (let i = 0; i < total; i++) {
+    let y: String = genRandomPhoneNumber();
+    array.push(y);
   }
-  return x;
+  return array;
+}
+
+function genHtmlPhoneNumberReturnString(array: Array<String>){
+  let returnString = "";
+  array.forEach((element, index) => {
+    returnString += `<span>Phone number ${index+1} : ${array[index]}</span><br>`
+  })
+  return returnString;
 }
 
 
 app.get("/phone-number", (req, res) => {
-  let x = genNumbers(1);
-  // @ts-ignore
-    res.send('Random phone Number : ' + x["phoneNo0"]);
+  try {
+    let array = genNumbers(1)
+    let returnString = genHtmlPhoneNumberReturnString(array);
+    res.send(returnString);
+  } catch (error) {
+    res.send('Error generating phone number');
+  }
 })
 
 app.get("/phone-number/:total", (req, res) => {
   let total: number = +req.params.total;
   try{
-    let obj: object = genNumbers(total);
-    let returnString = ""
-    for (let i = 0; i < total; i++) {
-      let objKey: string = "phoneNo"+i;
-      // @ts-ignore
-      let span = `<span>Phone Number ${i+1} : ${obj[objKey]}</span><br>`
-      returnString += span;
-    }
+    let array = genNumbers(total);
+    let returnString = genHtmlPhoneNumberReturnString(array);
     res.send(`<h1>Welcome!</h1> <h2>Here are your ${total} random danish phone numbers</h2> <p>${returnString}</p>`);
   } catch (error) {
     res.send("Error message");
   }
-
 })
 
 app.listen(port, () => {
