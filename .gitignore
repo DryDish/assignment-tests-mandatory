@@ -113,6 +113,7 @@ dist
 /.idea/testing.iml
 /.idea/vcs.xml
 package-lock.json
+*.code-workspace
 
 # Build files
 build/
