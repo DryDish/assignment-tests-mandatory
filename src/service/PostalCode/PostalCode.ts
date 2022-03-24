@@ -6,7 +6,7 @@ import mysql, {
   RowDataPacket,
 } from "mysql2";
 
-export async function getAllPostalCodes(connection: Pool) {
+export function getAllPostalCodes(connection: Connection) {
   connection.query("SELECT * FROM postal_code;", (err, result) => {
     console.log("hello there ");
     if (err) {
