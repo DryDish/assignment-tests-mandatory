@@ -12,6 +12,8 @@ docker-compose down express-app-test
 echo "Test environment cleaned!"
 
 echo "Running the test environment..."
+# Build the project
+docker-compose build express-app-prod addresses-db-prod
 # Run the tests
 docker-compose up express-app-tests --build --exit-code-from express-app-tests 
 test_result=$?
@@ -33,14 +35,14 @@ if [ $test_result -eq 0 ]; then
             echo "Images updated successfully!"
             exit 0
         else
-            echo "Images failed to upload. Error code: $upload_result"
+            echo "Images failed to upload. Error code: 3"
             exit 3
         fi
     else
-        echo "Login failed. exiting. Error code: $login_result"
+        echo "Login failed. exiting. Error code: 2"
         exit 2
     fi
 else
-    echo "Tests did not pass. exiting. Error code: $test_result"
+    echo "Tests did not pass. exiting. Error code: 1"
     exit 1
 fi
