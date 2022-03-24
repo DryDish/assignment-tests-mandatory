@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  addresses-prod:
+  addresses-db-prod:
     image: mysql-addresses-prod:0.1
     build: 
       dockerfile: .docker/mysql/Dockerfile

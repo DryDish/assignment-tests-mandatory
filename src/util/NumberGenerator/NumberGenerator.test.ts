@@ -25,4 +25,7 @@ describe("check random entry from array", () => {
   test("checks on string", () => {
     expect(["a", "b", "c"]).toContain(randomArrayEntry(["a", "b", "c"]));
   });
+  test("checks if empty array is given an error", () => {
+    expect(randomArrayEntry([])).toBe(undefined);
+  });
 });
