@@ -119,3 +119,6 @@ package-lock.json
 
 # Build files
 build/
+/.idea/assignment-tests-mandatory.iml
+/.idea/codeStyles/codeStyleConfig.xml
+/yarn.lock

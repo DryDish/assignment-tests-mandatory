@@ -1,4 +1,7 @@
-import { getHouseNumber, houseNumberGeneratorWithLetter } from "./HouseNumber";
+import {
+  houseNumberGenerator,
+  houseNumberGeneratorWithLetter,
+} from "./HouseNumber";
 
 /**
  * requirement:
@@ -13,7 +16,7 @@ describe("checks is house number is being generated currectly", () => {
     );
   });
   test("check random full number generated with a letter or a space", () => {
-    const houseNumber: string = getHouseNumber();
+    const houseNumber: string = houseNumberGenerator();
     expect(/[A-Z ]/.test(houseNumber.charAt(houseNumber.length - 1))).toBe(
       true
     );

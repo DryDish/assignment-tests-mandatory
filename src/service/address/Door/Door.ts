@@ -1,8 +1,8 @@
 import {
   numberGenerator,
   randomArrayEntry,
-} from "../../util/NumberGenerator/NumberGenerator";
-import { letterGenerator } from "../../util/LetterGenerator/LetterGenerator";
+} from "../../../util/NumberGenerator/NumberGenerator";
+import { letterGenerator } from "../../../util/LetterGenerator/LetterGenerator";
 
 export function getDoorSide(): string {
   return randomArrayEntry(["mf", "tv", "th"]);

@@ -1,5 +1,5 @@
-import { letterGenerator } from "../../util/LetterGenerator/LetterGenerator";
-import { numberGenerator } from "../../util/NumberGenerator/NumberGenerator";
+import { letterGenerator } from "../../../util/LetterGenerator/LetterGenerator";
+import { numberGenerator } from "../../../util/NumberGenerator/NumberGenerator";
 
 export function streetGenerator(): string {
   let street = "";
