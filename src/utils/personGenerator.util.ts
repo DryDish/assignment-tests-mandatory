@@ -12,7 +12,7 @@ export default class PersonGenerator {
    */
   public getRandomPerson(): PersonData {
     const person: Person =
-      this.peopleList[this.getRandomNumber(0, this.peopleList.length)];
+      this.peopleList[this.getRandomNumber(0, this.peopleList.length - 1)];
     return {
       fullName: `${person.name} ${person.surname}`,
       gender: person.gender,
