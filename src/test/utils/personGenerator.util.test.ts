@@ -110,16 +110,67 @@ describe("Person Generator", () => {
     });
   });
 
+  describe("Method getRandomDateOfBirth()", () => {
+    it("should match the format: yyyy-MM-dd and only contain characters from 0 to 9, and -", () => {
+      // Given
+      const personGenerator = new PersonGenerator();
+      const outputArray: Array<String> = [];
+
+      // When
+      for (let i = 0; i < testDataAmount; i++) {
+        outputArray.push(personGenerator.getRandomDateOfBirth());
+      }
+
+      // Then
+      for (let i = 0; i < testDataAmount; i++) {
+        expect(outputArray[i]).toMatch(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/);
+      }
+    });
+
+    it("should have a length of exactly ten characters", () => {
+      // Given
+      const personGenerator = new PersonGenerator();
+      const outputArray: Array<String> = [];
+
+      // When
+      for (let i = 0; i < testDataAmount; i++) {
+        outputArray.push(personGenerator.getRandomDateOfBirth());
+      }
+
+      // Then
+      for (let i = 0; i < testDataAmount; i++) {
+        expect(outputArray[i]).toHaveLength(10);
+      }
+    });
+
+    it("should be a valid date", () => {
+      // Given
+      const personGenerator = new PersonGenerator();
+      const outputArray: Array<String> = [];
+
+      // When
+      for (let i = 0; i < testDataAmount; i++) {
+        outputArray.push(personGenerator.getRandomDateOfBirth());
+      }
+
+      // Then
+      for (let i = 0; i < testDataAmount; i++) {
+        const splitDate = outputArray[i].split("-");
+        const testDay = Number(splitDate[2]);
+        const testMonth = Number(splitDate[1]);
+        const testYear = Number(splitDate[0]);
+        const testDate = new Date(testYear, testMonth - 1, testDay);
+
+        expect(testDay).toBe(testDate.getDate());
+        expect(testMonth).toBe(testDate.getMonth() + 1);
+        expect(testYear).toBe(testDate.getFullYear());
+      }
+    });
+  });
 });
 
 /*
   Test cases
- 
-  getRandomDateOfBirth()
-  make sure that the date has the proper length: 10 
-  make sure that the date has the proper format: yyyy-MM-dd
-  make sure that the date is valid -> split date in 3 and form a date object with it.
-  make sure it only has numbers from 0 - 9 and -
 
   getRandomPersonData()
   make sure that gender is only `female` or `male` - with a large sample data.
