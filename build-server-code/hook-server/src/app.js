@@ -1,3 +1,5 @@
+#!/home/ubuntu/.nvm/versions/node/v17.8.0/bin/node
+
 import express from "express";
 import pkg from 'body-parser';
 const { urlencoded, json } = pkg;
