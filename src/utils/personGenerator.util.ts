@@ -25,7 +25,7 @@ export default class PersonGenerator {
    * @returns a random CPR number
    */
   public getRandomCPR(): string {
-    const date = this.getRandomDate(new Date(1820, 1, 1), new Date());
+    const date = this.getRandomDate(new Date(1923, 1, 1), new Date());
     const randomNumber = this.getRandomNumber(1000, 9999);
     return `${this.formatDate(date, DateFormat.CPR)}${randomNumber}`;
   }
@@ -38,7 +38,7 @@ export default class PersonGenerator {
    * @returns a random Date of Birth.
    */
   public getRandomDateOfBirth(): string {
-    const date = this.getRandomDate(new Date(1820, 1, 1), new Date());
+    const date = this.getRandomDate(new Date(1923, 1, 1), new Date());
     return this.formatDate(date, DateFormat.Standard);
   }
 
@@ -53,7 +53,7 @@ export default class PersonGenerator {
     const person: PersonData = this.getRandomPerson();
 
     // Generating a birth date
-    const birthDate = this.getRandomDate(new Date(1820, 1, 1), new Date());
+    const birthDate = this.getRandomDate(new Date(1923, 1, 1), new Date());
     const birthDateFormatted = this.formatDate(birthDate, DateFormat.Standard);
 
     // Generating a CPR Number
@@ -121,13 +121,13 @@ export default class PersonGenerator {
         : `${date.getMonth() + 1}`;
     const day =
       date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
-
+    const year = date.getFullYear().toString().slice(2);
     switch (format) {
       case DateFormat.Standard:
         return `${date.getFullYear()}-${month}-${day}`;
       case DateFormat.CPR:
         // Adjust the day number to start with a `0` for single digit days
-        return `${day}${month}${date.getFullYear()}`;
+        return `${day}${month}${year}`;
     }
   }
 
