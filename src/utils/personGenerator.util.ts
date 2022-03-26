@@ -142,25 +142,25 @@ export default class PersonGenerator {
   }
 }
 
-type Person = {
+export type Person = {
   name: string;
   surname: string;
   gender: string;
 };
 
-type PersonData = {
+export type PersonData = {
   fullName: string;
   gender: string;
 };
 
-type PersonFullData = {
+export type PersonFullData = {
   fullName: string;
   gender: string;
   CPR: string;
   dateOfBirth: string;
 };
 
-enum DateFormat {
+export enum DateFormat {
   Standard,
   CPR,
 }
