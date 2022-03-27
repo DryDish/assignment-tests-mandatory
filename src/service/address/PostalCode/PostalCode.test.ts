@@ -7,9 +7,9 @@ import "dotenv/config";
 import { allPostalCode } from "../../../mocks/PostalCode/AllPostalCode";
 
 describe("checks genrating postal code and city", () => {
-  const { MYSQL_ROOT_PASSWORD } = process.env;
+  const { MYSQL_ROOT_PASSWORD, MYSQL_USER } = process.env;
   beforeAll(() => {
-    process.env.MYSQL_USER = "root";
+    process.env.MYSQL_USER = MYSQL_USER;
     process.env.MYSQL_PASSWORD = MYSQL_ROOT_PASSWORD;
   });
   test("gets all available postal code and cities", async () => {

@@ -6,7 +6,7 @@ const db = () =>
     host: "127.0.0.1",
     port: 3306,
     user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
+    password: process.env.MYSQL_ROOT_PASSWORD,
     database: "addresses",
   });
 
