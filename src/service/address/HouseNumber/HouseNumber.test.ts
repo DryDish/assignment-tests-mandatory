@@ -2,6 +2,7 @@ import {
   houseNumberGenerator,
   houseNumberGeneratorWithLetter,
 } from "./HouseNumber";
+import { repeatTestCount } from "../../../app.test";
 
 /**
  * requirement:
@@ -9,7 +10,7 @@ import {
  * optionally followed by an uppercase letter (e.g., 43B)
  */
 describe("checks is house number is being generated currectly", () => {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < repeatTestCount; i++) {
     test("generated house number with Uppercase letter", () => {
       const houseNumber: string = houseNumberGeneratorWithLetter();
       expect(/[A-Z ]/.test(houseNumber.charAt(houseNumber.length - 1))).toBe(

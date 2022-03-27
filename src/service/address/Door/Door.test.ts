@@ -4,6 +4,7 @@ import {
   apartmentDoorWithNumberGenerator,
   getDoorSide,
 } from "./Door";
+import { repeatTestCount } from "../../../app.test";
 
 /**
  * requirement:
@@ -14,7 +15,7 @@ import {
  * */
 
 describe("checks door generator", () => {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < repeatTestCount; i++) {
     test("checks if th/mf/tv is being generated", () => {
       const oldApartmentDoorOption = ["th", "mf", "tv"];
       expect(oldApartmentDoorOption.includes(getDoorSide())).toBe(true);

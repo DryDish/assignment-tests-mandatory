@@ -1,7 +1,8 @@
 import { numberGenerator, randomArrayEntry } from "./NumberGenerator";
+import { repeatTestCount } from "../../app.test";
 
 describe("checks random number generator", () => {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < repeatTestCount; i++) {
     test("checks if number is between 1-999 (house number)", () => {
       const houseNumber: number = numberGenerator(999);
       expect(houseNumber > 0 && houseNumber < 1000);
@@ -21,7 +22,7 @@ describe("checks random number generator", () => {
   }
 });
 describe("check random entry from array", () => {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < repeatTestCount; i++) {
     test("checks on array of numbers", () => {
       expect([1, 2, 3, 4, 5]).toContain(randomArrayEntry([1, 2, 3, 4, 5]));
     });

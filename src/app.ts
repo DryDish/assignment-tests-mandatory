@@ -2,12 +2,9 @@ import "dotenv/config";
 import express, { Application } from "express";
 import { Address } from "./service/address/address";
 
-const app: Application = express();
-const port = process.env.APP_PORT || 9000;
+export const app: Application = express();
+const port = process.env.APP_PORT;
 
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
 app.get("/address", async (req, res) => {
   {
     try {
@@ -15,7 +12,7 @@ app.get("/address", async (req, res) => {
       await address.init();
       res.send({ address: address });
     } catch (err) {
-      res.send(err);
+      res.sendStatus(401);
     }
   }
 });

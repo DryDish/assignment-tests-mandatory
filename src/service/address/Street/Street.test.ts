@@ -1,11 +1,12 @@
 import { streetGenerator } from "./Street";
+import { repeatTestCount } from "../../../app.test";
 
 /**
  * Street. A random assortment of alphabetic characters
  */
 
 describe("Gets random street name", () => {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < repeatTestCount; i++) {
     test("Generate random sequence of string", () => {
       const streetName: string = streetGenerator();
       expect(streetName).toBeTruthy();
