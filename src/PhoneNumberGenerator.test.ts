@@ -12,7 +12,7 @@ const genNumberParams = [
 ];
 
 describe('generate random phone numbers', () => {
-  for(let i = 0; i < 100; i++){
+  for(let i = 0; i < 50; i++){
     describe('testing genNumberParams', () => {
       test.each(genNumberParams)(`with params : '%s'`, (params) => {
         const phoneNumberArray: string[] = phoneNumberGenerator.genNumbers(params.testTotal);
