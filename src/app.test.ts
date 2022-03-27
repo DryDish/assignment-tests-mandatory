@@ -1,6 +1,6 @@
-import { app } from "./app";
 import request from "supertest";
 import "dotenv/config";
+import { app } from "./app";
 
 describe("checks endpoint", () => {
   test("check address endpoint", async () => {
@@ -19,4 +19,4 @@ describe("checks endpoint", () => {
   });
 });
 
-export const repeatTestCount = 10;
+export const repeatTestCount = 1;
