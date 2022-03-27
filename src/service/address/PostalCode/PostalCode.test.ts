@@ -17,7 +17,14 @@ describe("checks genrating postal code and city", () => {
     expect(rows.length).toBe(589);
   });
   test("get single postal code and city", async () => {
-    const postalCode: PostalCode = await postalCodeGenerator();
-    expect(allPostalCode).toEqual(expect.arrayContaining([postalCode]));
+    for (let i = 0; i < 100; i++) {
+      const postalCode: PostalCode = await postalCodeGenerator();
+      expect(allPostalCode).toEqual(expect.arrayContaining([postalCode]));
+    }
+  }, 5000);
+  test("checks contracture for postal code", () => {
+    const postalCode: PostalCode = new PostalCode("copenhagen", "1234");
+    expect(postalCode.cPostalCode).toBe("1234");
+    expect(postalCode.cTownName).toBe("copenhagen");
   });
 });
