@@ -12,15 +12,17 @@ const genNumberParams = [
 ];
 
 describe('generate random phone numbers', () => {
-  describe('testing genNumberParams', () => {
-    test.each(genNumberParams)(`with params : '%s'`, (params) => {
-      const phoneNumberArray: string[] = phoneNumberGenerator.genNumbers(params.testTotal);
-      expect(phoneNumberArray.length).toEqual(params.expectedTotal);
+  for(let i = 0; i < 100; i++){
+    describe('testing genNumberParams', () => {
+      test.each(genNumberParams)(`with params : '%s'`, (params) => {
+        const phoneNumberArray: string[] = phoneNumberGenerator.genNumbers(params.testTotal);
+        expect(phoneNumberArray.length).toEqual(params.expectedTotal);
+      });
     });
-  });
-  test("checks if string consists of only numbers and are 8 characters in length", () => {
-    const randomNumber: string[] = phoneNumberGenerator.genNumbers(1);
-    const onlyNumberRegexWithLengthOfEight = /^[0-9]{8}$/;
-    expect(onlyNumberRegexWithLengthOfEight.test(randomNumber[0])).toBe(true);
-  });
+    test("checks if string consists of only numbers and are 8 characters in length", () => {
+      const randomNumber: string[] = phoneNumberGenerator.genNumbers(1);
+      const onlyNumberRegexWithLengthOfEight = /^[0-9]{8}$/;
+      expect(onlyNumberRegexWithLengthOfEight.test(randomNumber[0])).toBe(true);
+    });
+  }
 });
