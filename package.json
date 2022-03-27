@@ -35,9 +35,7 @@
     "typescript": "^4.6.2"
   },
   "nodemonConfig": {
-    "ignore": [
-      "build/"
-    ],
+    "ignore": ["build/"],
     "delay": 4000,
     "ext": "js, ts, mjs, json, html, css"
   }
