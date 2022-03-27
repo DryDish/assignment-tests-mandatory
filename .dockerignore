@@ -1,0 +1,5 @@
+# Similar to gitignore, but is used to
+#  avouid random data to be sent to the docker build context
+
+/node_modules
+/build

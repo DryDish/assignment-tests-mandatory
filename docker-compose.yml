@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  addresses-db-prod:
+    image: $DOCKER_USER/testing-mandatory:addresses-db-prod
+    build: 
+      dockerfile: .docker/mysql/Dockerfile
+      context: .
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_HOST
+      - MYSQL_DATABASE
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD-SHELL", "/usr/bin/mysql --user=$MYSQL_USER --password=$MYSQL_PASSWORD --execute 'SHOW DATABASES';"]
+      interval: 3s
+      timeout: 2s
+      retries: 10
+      start_period: 3s
+
+  express-app-prod:
+    image: $DOCKER_USER/testing-mandatory:express-app-prod
+    build:
+      dockerfile: .docker/express-app/Dockerfile
+      context: .
+    environment:
+      - APP_PORT
+    ports:
+      - $APP_PORT:$APP_PORT
+    depends_on:
+      addresses-db-prod:
+        condition: service_healthy
+      express-app-tests:
+        condition: service_completed_successfully
+
+  express-app-tests:
+    build: 
+      dockerfile: .docker/express-app/Dockerfile.test
+      context: .
+    environment:
+      - APP_PORT
+    depends_on:
+      addresses-db-prod:
+        condition: service_healthy

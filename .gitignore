@@ -113,6 +113,8 @@ dist
 /.idea/testing.iml
 /.idea/vcs.xml
 package-lock.json
-
+*.code-workspace
+docker_token
+scripts/setup.sh
 # Build files
 build/

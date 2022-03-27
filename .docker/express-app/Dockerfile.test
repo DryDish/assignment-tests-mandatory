@@ -1,0 +1,20 @@
+## ----------------------- TEST RUNNER START ------------------------
+
+# Use this image to build from TS to JS
+FROM node:current-alpine AS test_runner
+
+# Default directory within the container
+WORKDIR /app
+
+# Copy needed files for npm install
+COPY package.json package.json
+RUN npm install
+
+# Copy over needed files for the build 
+COPY tsconfig.json /app/
+COPY src/ src/
+
+# Execute the build
+CMD ["npm", "test"] 
+
+## ----------------------- TEST RUNNER END --------------------------
