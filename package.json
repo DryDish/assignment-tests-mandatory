@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon src/app.ts"
     "test": "jest --coverage",
     "start": "nodemon --exec 'npx tsc && node build/app.js'"
   },
