@@ -3,9 +3,9 @@ import { randomArrayEntry } from "../../../util/NumberGenerator/NumberGenerator"
 
 const db = () =>
   createPool({
-    host: "127.0.0.1",
+    host: process.env.MYSQL_HOST,
     port: 3306,
-    user: process.env.MYSQL_USER,
+    user: "root",
     password: process.env.MYSQL_ROOT_PASSWORD,
     database: "addresses",
   });

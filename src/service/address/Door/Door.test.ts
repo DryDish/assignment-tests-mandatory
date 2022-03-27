@@ -4,7 +4,7 @@ import {
   apartmentDoorWithNumberGenerator,
   getDoorSide,
 } from "./Door";
-import { repeatTestCount } from "../../../app.test";
+import { repeatTestCount } from "../../../util/testConfig/repeatTestCount";
 
 /**
  * requirement:

@@ -17,6 +17,64 @@ describe("checks endpoint", () => {
     const res = await request(app).get("/address");
     expect(res.statusCode).toBe(401);
   });
-});
+  test("checks for full identity generator", async () => {
+    const res = await request(app).get("/identity");
+    const identity = res.body.identity;
+    expect(identity.person.fullName).toBeTruthy();
+    expect(identity.person.gender).toBeTruthy();
+    expect(identity.person.CPR).toBeTruthy();
+    expect(identity.person.dateOfBirth).toBeTruthy();
+    expect(identity.address).toBeTruthy();
+    expect(identity.phoneNumber).toBeTruthy();
+  });
 
-export const repeatTestCount = 1;
+  test("check person endpoint", async () => {
+    const res = await request(app).get("/person");
+    const person = res.body.person;
+    expect(person.fullName).toBeTruthy();
+    expect(person.gender).toBeTruthy();
+  });
+
+  test("check date of birth endpoint", async () => {
+    const res = await request(app).get("/person/date");
+    const date = res.body.date;
+    expect(date).toBeTruthy();
+  });
+
+  test("check cpr endpoint", async () => {
+    const res = await request(app).get("/person/cpr");
+    const cpr = res.body.cpr;
+    expect(cpr).toBeTruthy();
+  });
+
+  test("check full person endpoint", async () => {
+    const res = await request(app).get("/person/full");
+    const personData = res.body.personData;
+    expect(personData.fullName).toBeTruthy();
+    expect(personData.gender).toBeTruthy();
+    expect(personData.dateOfBirth).toBeTruthy();
+    expect(personData.cpr).toBeTruthy();
+  });
+
+  test("check person no cpr endpoint", async () => {
+    const res = await request(app).get("/person/no-cpr");
+    const personData = res.body.personData;
+    expect(personData.fullName).toBeTruthy();
+    expect(personData.gender).toBeTruthy();
+    expect(personData.dateOfBirth).toBeTruthy();
+  });
+
+  test("check person no birth date endpoint", async () => {
+    const res = await request(app).get("/person/no-date");
+    const personData = res.body.personData;
+    expect(personData.fullName).toBeTruthy();
+    expect(personData.gender).toBeTruthy();
+    expect(personData.cpr).toBeTruthy();
+  });
+
+  test("checks for error on identity endpoint", async () => {
+    process.env.MYSQL_ROOT_PASSWORD = "wrong-password";
+    const res = await request(app).get("/identity");
+    expect(res.statusCode).toBe(401);
+  });
+});

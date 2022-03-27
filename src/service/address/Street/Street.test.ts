@@ -1,5 +1,5 @@
 import { streetGenerator } from "./Street";
-import { repeatTestCount } from "../../../app.test";
+import { repeatTestCount } from "../../../util/testConfig/repeatTestCount";
 
 /**
  * Street. A random assortment of alphabetic characters

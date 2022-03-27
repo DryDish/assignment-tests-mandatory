@@ -3,12 +3,23 @@ import express, { Application } from "express";
 import { Address } from "./service/address/address";
 import PhoneNumberGenerator from "./service/phone/PhoneNumberGenerator";
 import PersonGenerator from "./service/person/personGenerator.util";
+import { Identity } from "./service/identity/identity";
 
 export const app: Application = express();
 const port = process.env.APP_PORT || 9000;
 
 const phoneNumberGenerator = new PhoneNumberGenerator();
 const personGenerator = new PersonGenerator();
+
+app.get("/identity", async (req, res) => {
+  const identity = new Identity();
+  try {
+    await identity.init();
+    res.send({ identity: identity });
+  } catch (err) {
+    res.sendStatus(401);
+  }
+});
 
 app.get("/address", async (req, res) => {
   {

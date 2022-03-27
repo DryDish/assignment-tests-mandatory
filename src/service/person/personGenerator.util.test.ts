@@ -1,9 +1,10 @@
 import PersonGenerator from "./personGenerator.util";
+import { repeatTestCount } from "../../util/testConfig/repeatTestCount";
 
 describe("Person Generator", () => {
-  const testDataAmount = 100;
+  const testDataAmount = repeatTestCount;
 
-  for (let j = 1; j < testDataAmount; j++) {
+  for (let i = 0; i < testDataAmount; i++) {
     describe("Method: getRandomPerson()", () => {
       it("should only contain gender 'male' or 'female'", () => {
         // Given

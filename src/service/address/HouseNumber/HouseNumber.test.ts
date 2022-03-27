@@ -2,7 +2,7 @@ import {
   houseNumberGenerator,
   houseNumberGeneratorWithLetter,
 } from "./HouseNumber";
-import { repeatTestCount } from "../../../app.test";
+import { repeatTestCount } from "../../../util/testConfig/repeatTestCount";
 
 /**
  * requirement:

@@ -1,5 +1,5 @@
 import { letterGenerator } from "./LetterGenerator";
-import { repeatTestCount } from "../../app.test";
+import { repeatTestCount } from "../testConfig/repeatTestCount";
 
 describe("generate a single letter", () => {
   for (let i = 0; i < repeatTestCount; i++) {

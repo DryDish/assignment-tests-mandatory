@@ -1,5 +1,5 @@
 import { numberGenerator, randomArrayEntry } from "./NumberGenerator";
-import { repeatTestCount } from "../../app.test";
+import { repeatTestCount } from "../testConfig/repeatTestCount";
 
 describe("checks random number generator", () => {
   for (let i = 0; i < repeatTestCount; i++) {
