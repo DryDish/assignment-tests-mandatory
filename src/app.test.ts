@@ -178,17 +178,27 @@ describe("checks endpoint", () => {
   });
 
   test("check phone-number single endpoint", async () => {
-    const res = await request(app).get("/phone-number");
-    const phoneNumberArray = res.body.Number;
-    expect(phoneNumberArray).toBeTruthy();
+    await request(app)
+      .get("/phone-number")
+      .expect(200)
+      .then((response) => {
+        const phoneNumberArray = response.body.Number;
+        expect(phoneNumberArray).toBeTruthy();
+    })
   });
 
   test("check phone-number multiple endpoint", async () => {
     const total = 5;
-    const res = await request(app).get(`/phone-number/${total}`);
-    const phoneNumberArray = res.body.Numbers;
-    expect(phoneNumberArray).toBeTruthy();
-    expect(phoneNumberArray.length).toBe(total);
+    await request(app)
+      .get(`/phone-number/${total}`)
+      .expect(200)
+      .then((response) => {
+        const phoneNumberArray = response.body.Numbers;
+        expect(phoneNumberArray).toBeTruthy();
+        expect(phoneNumberArray.length).toBe(total);
+    })
+    
+    
   });
 
   test("checks for error on identity endpoint", async () => {
