@@ -72,6 +72,20 @@ describe("checks endpoint", () => {
     expect(personData.cpr).toBeTruthy();
   });
 
+  test("check phone-number single endpoint", async () => {
+    const res = await request(app).get("/phone-number");
+    const phoneNumberArray = res.body.Number;
+    expect(phoneNumberArray).toBeTruthy();
+  });
+
+  test("check phone-number multiple endpoint", async () => {
+    const total = 5;
+    const res = await request(app).get(`/phone-number/${total}`);
+    const phoneNumberArray = res.body.Numbers;
+    expect(phoneNumberArray).toBeTruthy();
+    expect(phoneNumberArray.length).toBe(total);
+  });
+
   test("checks for error on identity endpoint", async () => {
     process.env.MYSQL_ROOT_PASSWORD = "wrong-password";
     const res = await request(app).get("/identity");
