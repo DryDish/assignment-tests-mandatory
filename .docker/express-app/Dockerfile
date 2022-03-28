@@ -6,6 +6,9 @@ FROM node:current-alpine AS builder
 # Default directory within the container
 WORKDIR /app
 
+RUN apk -U upgrade && apk add git
+
+
 # Copy needed files for npm install
 COPY package.json package.json
 RUN npm install
