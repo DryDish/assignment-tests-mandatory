@@ -10,11 +10,15 @@ describe("generate all person identity", () => {
   test("check if all identity are being generate correctly", async () => {
     const identity = new Identity();
     await identity.init();
+    expect(identity.person).toBeTruthy();
     expect(identity.person?.fullName).toBeTruthy();
     expect(identity.person?.gender).toBeTruthy();
     expect(identity.person?.CPR).toBeTruthy();
     expect(identity.person?.dateOfBirth).toBeTruthy();
-    expect(identity.address).toBeTruthy();
+    expect(identity.address?.street).toBeTruthy();
+    expect(identity.address?.postalCode).toBeTruthy();
+    expect(identity.address?.door).toBeTruthy();
+    expect(identity.address?.houseNumber).toBeTruthy();
     expect(identity.phoneNumber).toBeTruthy();
   });
 });
