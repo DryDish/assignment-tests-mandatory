@@ -3,10 +3,11 @@ import "dotenv/config";
 import { app, server } from "./app";
 
 describe("checks endpoint", () => {
+  const { MYSQL_ROOT_PASSWORD } = process.env;
   const superTest = request(app);
   afterAll(() => {
-    server.close()
-  })
+    server.close();
+  });
   test("check address endpoint", () => {
     return superTest
       .get("/address")
@@ -184,5 +185,28 @@ describe("checks endpoint", () => {
         expect(phoneNumberArray).toBeTruthy();
         expect(phoneNumberArray.length).toBe(total);
       });
+  });
+  test("check error code for wrong total number", () => {
+    return request(app)
+      .get("/phone-number/this_is_not_number")
+      .expect(422)
+      .then((response) => {
+        expect(response.body.message).toBe("Error generating phone number");
+      });
+  });
+
+  describe("checks endpoint for bad connection", () => {
+    beforeEach(() => {
+      process.env.MYSQL_ROOT_PASSWORD = "wrong-code";
+    });
+    afterEach(() => {
+      process.env.MYSQL_ROOT_PASSWORD = MYSQL_ROOT_PASSWORD;
+    });
+    test("checks identity endpoint", () => {
+      return superTest.get("/identity").expect(401);
+    });
+    test("checks address endpoint", () => {
+      return superTest.get("/address").expect(401);
+    });
   });
 });

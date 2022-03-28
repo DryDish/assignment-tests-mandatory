@@ -6,7 +6,7 @@ import PersonGenerator from "./service/person/personGenerator.util";
 import { Identity } from "./service/identity/identity";
 
 export const app: Application = express();
-const port = process.env.APP_PORT || 9000;
+const port = process.env.APP_PORT;
 
 const phoneNumberGenerator = new PhoneNumberGenerator();
 const personGenerator = new PersonGenerator();
@@ -56,19 +56,18 @@ app.get("/address", async (req, res) => {
 });
 
 app.get("/phone-number", (req, res) => {
-  try {
-    let resp = phoneNumberGenerator.genNumbers(1);
-    //let returnString = genHtmlPhoneNumberReturnString(array);
-    res.send({ Number: resp });
-  } catch (error) {
-    res.send("Error generating phone number");
-  }
+  let resp = phoneNumberGenerator.genNumbers(1);
+  res.send({ Number: resp });
 });
 
 app.get("/phone-number/:total", (req, res) => {
-  let total: number = +req.params.total;
-  let resp = phoneNumberGenerator.genNumbers(total);
-  res.send({ Numbers: resp });
+  if (/^[0-9]+$/.test(req.params.total)) {
+    let total: number = +req.params.total;
+    let resp = phoneNumberGenerator.genNumbers(total);
+    res.send({ Numbers: resp });
+  } else {
+    res.status(422).json({ message: "Error generating phone number" });
+  }
 });
 
 app.get("/person", (req, res) => {
