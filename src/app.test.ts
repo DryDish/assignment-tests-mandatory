@@ -1,9 +1,12 @@
 import request from "supertest";
 import "dotenv/config";
-import { app } from "./app";
+import { app, server } from "./app";
 
 describe("checks endpoint", () => {
   const superTest = request(app);
+  afterAll(() => {
+    server.close()
+  })
   test("check address endpoint", () => {
     return superTest
       .get("/address")

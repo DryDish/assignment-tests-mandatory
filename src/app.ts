@@ -109,6 +109,6 @@ app.get("/person/no-date", (req, res) => {
   });
 });
 
-app.listen(port, () => {
+export const server = app.listen(port, () => {
   console.log(`Connected successfully on port ${port}`);
 });
