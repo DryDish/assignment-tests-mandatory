@@ -28,6 +28,11 @@ services:
       context: .
     environment:
       - APP_PORT
+      - MYSQL_HOST
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
     ports:
       - $APP_PORT:$APP_PORT
     depends_on:
