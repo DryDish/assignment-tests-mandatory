@@ -21,6 +21,28 @@ app.get("/identity", async (req, res) => {
   }
 });
 
+app.get("/identity/:amount", async (req, res) => {
+  const amount = req.params.amount;
+  if (/^[0-9]+$/.test(amount)) {
+    const amountNumber = parseInt(amount);
+    if (amountNumber >= 2 && amountNumber <= 100) {
+      const identities: Identity[] = [];
+      for (let i = 0; i < amountNumber; i++) {
+        const identity = new Identity();
+        await identity.init();
+        identities.push(identity);
+      }
+      res.send({ identities });
+    } else {
+      res
+        .status(422)
+        .json({ message: `amount ${amount} has to be number between 2-100` });
+    }
+  } else {
+    res.status(422).json({ message: `amount ${amount} is not a number` });
+  }
+});
+
 app.get("/address", async (req, res) => {
   {
     try {
