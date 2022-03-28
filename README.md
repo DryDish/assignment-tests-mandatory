@@ -11,4 +11,5 @@ Test class mandatory assignment one: Unit and Integration testing
     MYSQL_ROOT_PASSWORD
     MYSQL_USER
     MYSQL_PASSWORD
-		
+    DOCKER_TOKEN
+    DOCKER_USER
