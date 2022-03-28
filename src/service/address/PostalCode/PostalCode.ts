@@ -1,18 +1,17 @@
 import { createPool } from "mysql2/promise";
 import { randomArrayEntry } from "../../../util/NumberGenerator/NumberGenerator";
+import "dotenv/config";
 
-const db = () =>
-  createPool({
-    host: process.env.MYSQL_HOST,
-    port: 3306,
-    user: "root",
-    password: process.env.MYSQL_ROOT_PASSWORD,
-    database: "addresses",
-  });
+const db = createPool({
+  host: process.env.MYSQL_HOST,
+  port: 3306,
+  user: "root",
+  password: process.env.MYSQL_ROOT_PASSWORD,
+  database: "addresses",
+});
 
 export async function getAllPostalCodes(): Promise<PostalCode[]> {
-  const dbConnection = db();
-  const [rows] = await dbConnection.query<[PostalCode[], any]>(
+  const [rows] = await db.query<[PostalCode[], any]>(
     "SELECT * FROM postal_code;"
   );
   return rows;

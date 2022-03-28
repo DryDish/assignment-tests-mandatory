@@ -7,7 +7,6 @@ describe("checks auto generated address", () => {
     process.env.MYSQL_USER = "root";
     process.env.MYSQL_PASSWORD = MYSQL_ROOT_PASSWORD;
   });
-
   test("checks if address contain all the expected attributes", async () => {
     const address = new Address();
     await address.init();

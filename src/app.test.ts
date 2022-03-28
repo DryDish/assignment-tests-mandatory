@@ -3,12 +3,9 @@ import "dotenv/config";
 import { app } from "./app";
 
 describe("checks endpoint", () => {
-  const { MYSQL_ROOT_PASSWORD } = process.env;
-  beforeEach(() => {
-    process.env.MYSQL_ROOT_PASSWORD = MYSQL_ROOT_PASSWORD;
-  });
-  test("check address endpoint", async () => {
-    await request(app)
+  const superTest = request(app);
+  test("check address endpoint", () => {
+    return superTest
       .get("/address")
       .expect(200)
       .then((response) => {
@@ -20,18 +17,8 @@ describe("checks endpoint", () => {
         expect(address.street).toBeTruthy();
       });
   });
-
-  test("checks for error on address endpoint", async () => {
-    process.env.MYSQL_ROOT_PASSWORD = "wrong-password";
-    await request(app)
-      .get("/address")
-      .expect(401)
-      .then((response) => {
-        expect(response.statusCode).toBe(401);
-      });
-  });
-  test("checks for full identity generator", async () => {
-    await request(app)
+  test("checks for full identity generator", () => {
+    return superTest
       .get("/identity")
       .expect(200)
       .then((response) => {
@@ -45,40 +32,37 @@ describe("checks endpoint", () => {
       });
   });
 
-  test("checks for multiple identity generator", async () => {
-    await request(app)
+  test("checks for multiple identity generator", () => {
+    return superTest
       .get("/identity/10")
       .expect(200)
       .then((response) => {
         const identities = response.body.identities;
-        console.log(identities);
         expect(identities.length).toBe(10);
       });
   });
-  test("checks for multiple identity generator", async () => {
-    await request(app)
+  test("checks for multiple identity generator", () => {
+    return superTest
       .get("/identity/2")
       .expect(200)
       .then((response) => {
         const identities = response.body.identities;
-        console.log(identities);
         expect(identities.length).toBe(2);
       });
   });
 
-  test("checks for multiple identity generator", async () => {
-    await request(app)
+  test("checks for multiple identity generator", () => {
+    return superTest
       .get("/identity/100")
       .expect(200)
       .then((response) => {
         const identities = response.body.identities;
-        console.log(identities);
         expect(identities.length).toBe(100);
       });
   });
 
-  test("checks for too big amount 101", async () => {
-    await request(app)
+  test("checks for too big amount 101", () => {
+    return superTest
       .get("/identity/101")
       .expect(422)
       .then((response) => {
@@ -87,8 +71,8 @@ describe("checks endpoint", () => {
         );
       });
   });
-  test("checks for too small amount 1", async () => {
-    await request(app)
+  test("checks for too small amount 1", () => {
+    return superTest
       .get("/identity/1")
       .expect(422)
       .then((response) => {
@@ -98,8 +82,8 @@ describe("checks endpoint", () => {
       });
   });
 
-  test("checks for non number", async () => {
-    await request(app)
+  test("checks for non number", () => {
+    return superTest
       .get("/identity/thisIsNotNumber")
       .expect(422)
       .then((response) => {
@@ -109,8 +93,8 @@ describe("checks endpoint", () => {
       });
   });
 
-  test("check person endpoint", async () => {
-    await request(app)
+  test("check person endpoint", () => {
+    return superTest
       .get("/person")
       .expect(200)
       .then((response) => {
@@ -120,8 +104,8 @@ describe("checks endpoint", () => {
       });
   });
 
-  test("check date of birth endpoint", async () => {
-    await request(app)
+  test("check date of birth endpoint", () => {
+    return superTest
       .get("/person/date")
       .expect(200)
       .then((response) => {
@@ -130,8 +114,8 @@ describe("checks endpoint", () => {
       });
   });
 
-  test("check cpr endpoint", async () => {
-    await request(app)
+  test("check cpr endpoint", () => {
+    return superTest
       .get("/person/cpr")
       .expect(200)
       .then((response) => {
@@ -140,8 +124,8 @@ describe("checks endpoint", () => {
       });
   });
 
-  test("check full person endpoint", async () => {
-    await request(app)
+  test("check full person endpoint", () => {
+    return superTest
       .get("/person/full")
       .expect(200)
       .then((response) => {
@@ -153,8 +137,8 @@ describe("checks endpoint", () => {
       });
   });
 
-  test("check person no cpr endpoint", async () => {
-    await request(app)
+  test("check person no cpr endpoint", () => {
+    return superTest
       .get("/person/no-cpr")
       .expect(200)
       .then((response) => {
@@ -165,8 +149,8 @@ describe("checks endpoint", () => {
       });
   });
 
-  test("check person no birth date endpoint", async () => {
-    await request(app)
+  test("check person no birth date endpoint", () => {
+    return superTest
       .get("/person/no-date")
       .expect(200)
       .then((response) => {
@@ -177,32 +161,25 @@ describe("checks endpoint", () => {
       });
   });
 
-  test("check phone-number single endpoint", async () => {
-    await request(app)
+  test("check phone-number single endpoint", () => {
+    return request(app)
       .get("/phone-number")
       .expect(200)
       .then((response) => {
         const phoneNumberArray = response.body.Number;
         expect(phoneNumberArray).toBeTruthy();
-    })
+      });
   });
 
-  test("check phone-number multiple endpoint", async () => {
+  test("check phone-number multiple endpoint", () => {
     const total = 5;
-    await request(app)
+    return request(app)
       .get(`/phone-number/${total}`)
       .expect(200)
       .then((response) => {
         const phoneNumberArray = response.body.Numbers;
         expect(phoneNumberArray).toBeTruthy();
         expect(phoneNumberArray.length).toBe(total);
-    })
-    
-    
-  });
-
-  test("checks for error on identity endpoint", async () => {
-    process.env.MYSQL_ROOT_PASSWORD = "wrong-password";
-    await request(app).get("/identity").expect(401);
+      });
   });
 });
