@@ -13,15 +13,15 @@ const genNumberParams = [
 ];
 
 describe("generate random phone numbers", () => {
-  for (let i = 0; i < repeatTestCount; i++) {
-    describe("testing genNumberParams", () => {
-      test.each(genNumberParams)(`with params : '%s'`, (params) => {
-        const phoneNumberArray: string[] = phoneNumberGenerator.genNumbers(
-          params.testTotal
-        );
-        expect(phoneNumberArray.length).toEqual(params.expectedTotal);
-      });
+  describe("testing genNumberParams", () => {
+    test.each(genNumberParams)(`with params : '%s'`, (params) => {
+      const phoneNumberArray: string[] = phoneNumberGenerator.genNumbers(
+        params.testTotal
+      );
+      expect(phoneNumberArray.length).toEqual(params.expectedTotal);
     });
+  });
+  for (let i = 0; i < repeatTestCount; i++) {
     test("checks if string consists of only numbers and are 8 characters in length", () => {
       const randomNumber: string[] = phoneNumberGenerator.genNumbers(1);
       const onlyNumberRegexWithLengthOfEight = /^[0-9]{8}$/;
