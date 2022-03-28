@@ -1,4 +1,4 @@
-FROM arm64v8/mysql:oracle
+FROM mysql:latest
 
 # Whatever is copied into this folder on the container will 
 #  be auto run on creation in alphanumeric order
