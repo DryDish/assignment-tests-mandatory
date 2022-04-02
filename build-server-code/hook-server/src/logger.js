@@ -66,9 +66,12 @@ function error(text) {
  * // output: [2022-03-26 15:59:33]
  */
 function formatDateTime() {
-  const currentDate = new Date();
-  const date = currentDate.toISOString().split('T')[0];
-  const time = currentDate.toLocaleTimeString();
+  // Date time in format of 2022-03-26T15:59:33.12311
+  const current_date_time = new Date().toISOString();
+  // Take on the date part of time: eg 2022-03-26
+  const date = current_date_time.split('T')[0];
+  // Take only the time part of time, discarding ms: eg 15:59:33
+  const time = current_date_time.split('T')[1].split('.')[0];
   return `[${date} ${time}]`;
 }
 
