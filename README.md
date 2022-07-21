@@ -1,7 +1,7 @@
-# mandatory-assignment-tests
+# Mandatory Assignment Tests
 Test class mandatory assignment one: Unit and Integration testing
 
----
+
 ## Required ENV for docker-compose
     APP_PORT
     SERVICE_HOST
@@ -13,3 +13,4 @@ Test class mandatory assignment one: Unit and Integration testing
     MYSQL_PASSWORD
     DOCKER_TOKEN
     DOCKER_USER
+    
