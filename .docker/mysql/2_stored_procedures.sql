@@ -5,6 +5,8 @@
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+use `addresses`;
+
 -- Stored procedures
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `RemoveDuplicates`$$

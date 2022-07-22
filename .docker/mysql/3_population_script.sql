@@ -6,6 +6,8 @@
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+use `addresses`;
+
 -- Population Data
 INSERT INTO `postal_code` (`cPostalCode`, `cTownName`) VALUES
 ('1301', 'København K'),
