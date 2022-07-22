@@ -27,6 +27,8 @@ RUN npx tsc --build
 # This is the image that the compiled app will run on
 FROM node:current-alpine AS runner
 
+RUN apk -U upgrade && apk add git
+
 # Default directory within the container
 WORKDIR /app
 
